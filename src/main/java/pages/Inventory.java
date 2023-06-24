@@ -11,8 +11,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Inventory {
@@ -67,76 +65,14 @@ public class Inventory {
         return PageFactory.initElements(driver,Inventory.class);
 
     }
-    public boolean areNamesOrderd(String orderType){
+    public List<WebElement> productNames(){
         List<WebElement> productNames = driver.findElements(By.className("inventory_item_name"));
-        List<String> names=new LinkedList<>();
-        List<String> tempNames=new LinkedList<>();
-        for(WebElement item: productNames){
-            names.add(item.getText());
-            tempNames.add(item.getText());
-        }
-        if(orderType.equals("az")){
-            Collections.sort(tempNames);
-            for(int i=0; i<names.size();i++){
-                if(!tempNames.get(i).equals(names.get(i))){
-
-                    return false;
-                }
-
-            }
-        }else if(orderType.equals("za")){
-            Collections.sort(tempNames);
-            Collections.reverse(tempNames);
-            for(int i=0; i<names.size();i++){
-                if(!tempNames.get(i).equals(names.get(i))){
-
-                    return false;
-                }
-
-            }
-
-        }
-
-
-
-       return true;
+        return  productNames;
     }
 
-    public boolean arePricesOrderd(String orderType){
-        List<WebElement> productNames = driver.findElements(By.className("inventory_item_price"));
-        List<Double> names=new LinkedList<>();
-        List<Double> tempNames=new LinkedList<>();
-        for(WebElement item: productNames){
-            String newStr = item.getText().replaceAll("[$,]", "");
-            names.add(Double.parseDouble(newStr));
-            tempNames.add(Double.parseDouble(newStr));
-        }
-        if(orderType.equals("lohi")){
-            Collections.sort(tempNames);
-            for(int i=1; i<names.size();i++){
-                if(!tempNames.get(i).equals(names.get(i))){
-
-                    return false;
-                }
-            }
-        }else if(orderType.equals("hilo")){
-            Collections.sort(tempNames);
-            Collections.reverse(tempNames);
-            for(int i=0; i<names.size();i++){
-                if(!tempNames.get(i).equals(names.get(i))){
-
-                    return false;
-                }
-
-            }
-
-        }
-
-
-
-
-
-        return true;
+    public List<WebElement> productPrices(){
+        List<WebElement> productPrices = driver.findElements(By.className("inventory_item_price"));
+        return  productPrices;
     }
 
 
